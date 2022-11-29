@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-//main activity becomes the listener
 public class HistoryRecyclerActivity extends AppCompatActivity implements HistoryRecycleAdapter.ItemListener {
     RecyclerView recyclerHistoryView;
     ArrayList<History> recyclerHistoryList;

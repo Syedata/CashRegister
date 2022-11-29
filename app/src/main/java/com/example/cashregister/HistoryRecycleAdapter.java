@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-//recycler adapter needs a view holder so that it can create that view holder and bind data to it
+//recycler adapter needs a view holder object so that it can create the view for each row and bind data to it
 //existing view holder are going to be recycled to take the new data
 
 
@@ -57,6 +57,7 @@ public class HistoryRecycleAdapter extends RecyclerView.Adapter<HistoryRecycleAd
     }
 
     // inner class to create a view holder
+    //view holder is the individual element in the list
     public class HistoryViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
         TextView nameText;

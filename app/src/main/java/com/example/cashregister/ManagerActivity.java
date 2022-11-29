@@ -24,10 +24,8 @@ public class ManagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manager);
 
         toolbar = findViewById(R.id.custom_toolbar);
-//        TextView mTitle = (TextView) toolbar.findViewById(R.id.custom_title);
         toolbar.setNavigationIcon(com.google.android.material.R.drawable.abc_ic_ab_back_material);
         setSupportActionBar(toolbar);
-//        mTitle.setText("Cash Register");
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -37,6 +35,10 @@ public class ManagerActivity extends AppCompatActivity {
             }
         });
 
+        if (getIntent().hasExtra("HistoryListOfItems")) {
+            managerHistoryList = getIntent().getExtras().getParcelableArrayList("HistoryListOfItems");
+            //managerHistoryList = getIntent().getParcelableExtra("HistoryListOfItems");
+        }
 
         history = findViewById(R.id.history_button);
         restock = findViewById(R.id.restock_button);
@@ -44,9 +46,10 @@ public class ManagerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent historyIntent = new Intent(ManagerActivity.this, HistoryRecyclerActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("MyStoreHistoryList", managerHistoryList);
-                historyIntent.putExtras(bundle);
+                historyIntent.putExtra("MyStoreHistoryList", managerHistoryList);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelableArrayList("MyStoreHistoryList", managerHistoryList);
+//                historyIntent.putExtras(bundle);
                 startActivity(historyIntent);
             }
         });
@@ -58,9 +61,6 @@ public class ManagerActivity extends AppCompatActivity {
             }
         });
 
-        if (getIntent().hasExtra("HistoryListOfItems")) {
-            managerHistoryList = getIntent().getExtras().getParcelableArrayList("HistoryListOfItems");
-        }
     }
 
 }

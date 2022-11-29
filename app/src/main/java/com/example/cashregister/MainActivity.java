@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ProductBaseAdapter adapter;
     ArrayList<History> historyList = new ArrayList<>();
     Toolbar toolbar;
-    boolean validPurchase = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,21 +78,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         managerButton.setOnClickListener(this);
 
 
-        adapter = new ProductBaseAdapter(((MyApp) getApplication()).getAppProductList(), MainActivity.this);
-        productList.setAdapter(adapter);
-
-        productList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //getting the name of item and setting it in productType
-                itemToBuy = ((MyApp) getApplication()).getAppProductList().get(i);
-                productType.setText(itemToBuy.getName());
-            }
-        });
-
     }
-//onResume() is called when navigating back to the activity
-//creating the adapter again to populate the ListView
+    //after OnCreate the next callback is OnResume so creating the adapter to populate the ListView
+//Also onResume() is called when navigating back to the activity
     @Override
     public void onResume(){
         super.onResume();
@@ -107,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         productList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //storing the selected item in itemToBuy
+                ////getting the name of item and setting it in productType
                 itemToBuy = ((MyApp) getApplication()).getAppProductList().get(i);
                 // productType text will display the product name of the selected item
                 productType.setText(itemToBuy.getName());
@@ -159,9 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.manager_button:
 
                 Intent intent = new Intent(this, ManagerActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("HistoryListOfItems", historyList);
-                intent.putExtras(bundle);
+                intent.putExtra("HistoryListOfItems", historyList);
                 startActivity(intent);
                 break;
 
@@ -174,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     boolean validatePurchase() {
+        boolean validPurchase = false;
         if (!totalQuantity.getText().toString().isEmpty() && !productType.getText().toString().isEmpty())
             validPurchase = true;
         return validPurchase;
